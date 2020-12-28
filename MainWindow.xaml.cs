@@ -1,5 +1,6 @@
-﻿//数据流：insert data -> MySQL table -> DataTable
+﻿//数据流：insert data -> DataTable <-> MySQL table 双向
 //11点26分 2020年12月28日 by Fjsox
+//11点33分 2020年12月28日 新建分支 by Fjsox
 
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,11 @@ namespace WPF_MySQL_Test
     {
         string connStr = "server=192.168.1.103;port=3306;database=test;user=fox;password=`1234";//链接，账户设置
         MySqlConnection conn;//声明远程连接
+        DataTable dataTable;//
+        MySqlCommand cmd;//
+        MySqlDataAdapter sda;//
         //DataTable dataTable = new DataTable();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -40,51 +45,45 @@ namespace WPF_MySQL_Test
         /// <param name="e"></param>
         private void Btn_Show_Clk(object sender, RoutedEventArgs e)
         {
-            conn = new MySqlConnection(connStr);//打开链接
-           
-            conn.Open();
-
-            Show_Table();
-
-            conn.Close();
-        }
-
-        /// <summary>
-        /// 绘制表格
-        /// </summary>
-        private void Show_Table()
-        {
-            DataTable dataTable = new DataTable();
-
-            MySqlCommand cmd = conn.CreateCommand();
+            if (LV.DataContext!=null)
+            {
+                return;
+            }
             cmd.CommandText = "select * from fcs";//设置sql文本
-            MySqlDataAdapter sda = new MySqlDataAdapter(cmd);
+            sda = new MySqlDataAdapter(cmd);
             sda.Fill(dataTable);
 
             LV.DataContext = dataTable.DefaultView;
         }
 
-        //上传数据并刷新表格
+
+
+        /// <summary>
+        /// 上传数据并刷新表格
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btn_Add_CLk(object sender, RoutedEventArgs e)
         {
-            //List<string> 
+            dataTable.Rows.Add(Convert.ToInt32(Tbo_ID.Text), Tbo_NAME.Text, Convert.ToInt32(Tbo_AGE.Text));//new
+            MySqlCommandBuilder mySqlCommandBuilder = new MySqlCommandBuilder(sda);//在透过dataadapter的selectcommand从数据源取回表结构后，自适应生成insert,delete,updata命令
 
-            conn = new MySqlConnection(connStr);
+            sda.Update(dataTable);//上传
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            conn = new MySqlConnection(connStr);//打开链接
             conn.Open();
-            //dataTable = new DataTable();
+            cmd = conn.CreateCommand();//
 
+            dataTable = new DataTable();//
+        }
 
-            MySqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = "insert into fcs value('"+Convert.ToInt32(Tbo_ID.Text)+ "', " +
-                "'" + Tbo_NAME.Text + "','" + Convert.ToInt32(Tbo_AGE.Text) + "')";//设置sql文本 //@id，@name，@age
-            //cmd.Parameters.AddWithValue("@id", Convert.ToInt32(Tbo_ID.Text));//通常方式
-            //cmd.Parameters.AddWithValue("@name", Tbo_NAME.Text);
-            //cmd.Parameters.AddWithValue("@age", Convert.ToInt32(Tbo_AGE.Text));
-            cmd.ExecuteNonQuery();//写入
-
-            Show_Table();
-
+        private void Window_Closed(object sender, EventArgs e)
+        {
             conn.Close();
+            //dataTable.Clear();//清空datatable
         }
     }
 

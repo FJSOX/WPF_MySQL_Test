@@ -5,17 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_MySQL_Test"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="600">
+        Title="MainWindow" Height="450" Width="600" Loaded="Window_Loaded" Closed="Window_Closed">
     <Window.Resources>
         <local:BackgroundConverter x:Key="bgc"></local:BackgroundConverter>
         <Style x:Key="ListViewItemStyle" TargetType="{x:Type ListViewItem}">
             <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
         </Style>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="241*"></ColumnDefinition>
+            <ColumnDefinition Width="10*"/>
             <ColumnDefinition Width="90"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -23,7 +24,7 @@
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
 
-        <ListView Height="300" Margin="12,0,12,39" VerticalAlignment="Bottom" ItemContainerStyle="{StaticResource ListViewItemStyle}" ItemsSource="{Binding}" Name="LV" HorizontalAlignment="Center">
+        <ListView Height="300" Margin="21,0,0.861,39" VerticalAlignment="Bottom" ItemContainerStyle="{StaticResource ListViewItemStyle}" ItemsSource="{Binding}" Name="LV" HorizontalAlignment="Center">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="编号" DisplayMemberBinding="{Binding Path=ID}"  Width="150" />
@@ -31,7 +32,7 @@
                     <GridViewColumn Header="年龄" Width="150">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding Path=AGE}" Foreground="{Binding Path=Age, Converter={StaticResource bgc}}"/>
+                                <TextBlock  Text="{Binding Path=AGE}" Foreground="{Binding Path=AGE, Converter={StaticResource bgc}}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -39,17 +40,17 @@
             </ListView.View>
         </ListView>
 
-        <Button Click="Btn_Show_Clk" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Show</Button>
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
+        <Button Click="Btn_Show_Clk" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">Show</Button>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Grid.ColumnSpan="2">
             <Label Width="80" HorizontalContentAlignment="Right" VerticalAlignment="Center">ID</Label>
-            <TextBox x:Name="Tbo_ID" Width="80" HorizontalContentAlignment="Left"  VerticalAlignment="Center">0</TextBox>
+            <TextBox x:Name="Tbo_ID" Width="80" HorizontalContentAlignment="Left" IsEnabled="False" VerticalAlignment="Center">0</TextBox>
             <Label Width="80" HorizontalContentAlignment="Right" VerticalAlignment="Center">NAME</Label>
-            <TextBox x:Name="Tbo_NAME" Width="80" HorizontalContentAlignment="Left" VerticalAlignment="Center"> </TextBox>
+            <TextBox x:Name="Tbo_NAME" Width="80" HorizontalContentAlignment="Left" VerticalAlignment="Center">N/A</TextBox>
             <Label Width="80" HorizontalContentAlignment="Right" VerticalAlignment="Center">AGE</Label>
             <TextBox x:Name="Tbo_AGE" Width="80" HorizontalContentAlignment="Left" VerticalAlignment="Center">0</TextBox>
-            
+
         </StackPanel>
-        <Button Click="Btn_Add_CLk" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Add</Button>
+        <Button Click="Btn_Add_CLk" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">Add</Button>
 
     </Grid>
 </Window>
