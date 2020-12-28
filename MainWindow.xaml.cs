@@ -1,4 +1,4 @@
-﻿//数据流：insert data -> MySQL table -> DataTable
+﻿//数据流：insert data -> MySQL table -> DataTable 单向
 //11点26分 2020年12月28日 by Fjsox
 
 using System;
