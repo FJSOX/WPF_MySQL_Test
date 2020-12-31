@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data;
 using MySql.Data.MySqlClient;
+using System.Text.RegularExpressions;
 
 namespace WPF_MySQL_Test
 {
@@ -45,13 +46,15 @@ namespace WPF_MySQL_Test
         /// <param name="e"></param>
         private void Btn_Show_Clk(object sender, RoutedEventArgs e)
         {
-            if (LV.DataContext!=null)
-            {
-                return;
-            }
             cmd.CommandText = "select * from fcs";//设置sql文本
             sda = new MySqlDataAdapter(cmd);
-            sda.Fill(dataTable);
+            if (LV.DataContext!=null)
+            {
+                dataTable.Clear();
+            }
+            sda.Fill(dataTable);//填充
+
+            Tbo_ID.Text = (Convert.ToInt32(dataTable.Compute("max(ID)", ""))+1).ToString();
 
             LV.DataContext = dataTable.DefaultView;
         }
@@ -65,10 +68,41 @@ namespace WPF_MySQL_Test
         /// <param name="e"></param>
         private void Btn_Add_CLk(object sender, RoutedEventArgs e)
         {
-            dataTable.Rows.Add(Convert.ToInt32(Tbo_ID.Text), Tbo_NAME.Text, Convert.ToInt32(Tbo_AGE.Text));//new
+            //
+            DataRow dr = dataTable.NewRow();
+            object[] obarr = new object[3];
+
+            for (int i = 0, j=0; i < StkP.Children.Count; i++)
+            {
+                UIElement element = StkP.Children[i];
+                if (element is TextBox)
+                {
+                    TextBox tb = element as TextBox;
+                    string tbtext = tb.Text;
+                    if (IsNumber(tbtext))
+                    {
+                        //添加int
+                        obarr[j]= Convert.ToInt32(tbtext);
+                    }
+                    else
+                    {
+                        //添加string
+                        obarr[j] = tbtext;
+                    }
+
+                    ++j;
+                }
+            }
+
+            //dataTable.Rows.Add(Convert.ToInt32(Tbo_ID.Text), Tbo_NAME.Text, Convert.ToInt32(Tbo_AGE.Text));//new
+
+            dr.ItemArray = obarr;
+            dataTable.Rows.Add(dr);
             MySqlCommandBuilder mySqlCommandBuilder = new MySqlCommandBuilder(sda);//在透过dataadapter的selectcommand从数据源取回表结构后，自适应生成insert,delete,updata命令
 
             sda.Update(dataTable);//上传
+
+            Tbo_ID.Text = (Convert.ToInt32(dataTable.Compute("max(ID)", "")) + 1).ToString();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -78,6 +112,28 @@ namespace WPF_MySQL_Test
             cmd = conn.CreateCommand();//
 
             dataTable = new DataTable();//
+        }
+
+        /// <summary>
+        /// 使用正则表达式判断是否为数字
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        private bool IsNumber(string str)
+        {
+            //string rule = "^-?[0-9]*$";
+            //Regex rg = new Regex(rule);
+            Regex rg = new Regex(@"^-?[0-9].?[0-9]*$");
+            Match m = rg.Match(str);
+            string re = m.Value;
+
+            if (m.Value==str)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
         }
 
         private void Window_Closed(object sender, EventArgs e)

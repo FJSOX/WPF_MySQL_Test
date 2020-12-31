@@ -13,6 +13,9 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+#MyRule
+!*.dll
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
