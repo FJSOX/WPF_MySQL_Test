@@ -41,6 +41,7 @@
         </ListView>
 
         <Button Click="Btn_Show_Clk" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">Show</Button>
+        <Button Click="Btn_New_Window" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom">New</Button>
         <StackPanel x:Name="StkP" Grid.Row="1" Orientation="Horizontal" Grid.ColumnSpan="2">
             <Label Width="80" HorizontalContentAlignment="Right" VerticalAlignment="Center">ID</Label>
             <TextBox x:Name="Tbo_ID" Width="80" HorizontalContentAlignment="Left" IsEnabled="False" VerticalAlignment="Center">0</TextBox>
