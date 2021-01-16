@@ -36,8 +36,47 @@ namespace WPF_MySQL_Test
 
             //this.rectangle.Fill = Brushes.Red;
 
-            MiAN(sender,e);
+            //MiAN(sender,e);
 
+            //Thread td = new Thread(NewANi);
+            //td.IsBackground = false;
+            //td.Start();
+
+            App.Current.Dispatcher.Invoke((Action)(() =>//开始异步执行，原理正在搞
+            {
+                NewANi();
+            }));
+
+            for (int i = 0; i < 100; i++)//no.3
+            {
+                Thread.Sleep(100);//主线程需要做的事
+                Console.WriteLine("action {0}",i);
+            }
+            
+
+            App.Current.Dispatcher.Invoke((Action)(() =>
+            {
+                ClzANi();
+            }));
+        }
+
+
+        public delegate void NewWin();
+        static void NewThread(object sender, RoutedEventArgs e)
+        {
+            Thread td = new Thread(NewANi);
+            td.Start();
+        }
+
+        static void NewANi()
+        {
+            aNi = new ANi();
+            aNi.Show();
+        }
+
+        static void ClzANi()
+        {
+            aNi.Close();
         }
 
         public delegate void DoWork(object sender, RoutedEventArgs e);
