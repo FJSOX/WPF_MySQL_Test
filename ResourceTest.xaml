@@ -1,0 +1,49 @@
+﻿<Window x:Class="WPF_MySQL_Test.ResourceTest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:prop="clr-namespace:WPF_MySQL_Test.Properties"
+        xmlns:local="clr-namespace:WPF_MySQL_Test"
+        mc:Ignorable="d"
+        Title="ResourceTest" Height="400" Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <sys:String x:Key="str">
+                遮天蔽日，梦魇降临。
+            </sys:String>
+            <sys:Double x:Key="Pi">
+                3.141592654
+            </sys:Double>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid x:Name="GD">
+        <Grid.Resources>
+            <ResourceDictionary>
+                <sys:String x:Key="str1">无可阻挡，坚不可摧。</sys:String>
+                <!--<sys:String x:Key="str2">无可阻挡，坚不可摧。</sys:String>-->
+            </ResourceDictionary>
+            
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="{StaticResource ResourceKey=str}" Margin="8" TextAlignment="Center"/>
+        
+        <!--<TextBlock Text="{StaticResource ResourceKey=Pi}"/>-->
+        <StackPanel x:Name="SP1" Grid.Column="1" Margin="4">
+            <TextBlock x:Name="TBK_Name" Margin="4" Text="{x:Static prop:Resources.Name}"></TextBlock>
+            <TextBox x:Name="TBX_Name" Margin="4"></TextBox>
+            <TextBlock x:Name="TBK_Age" Margin="4" ></TextBlock>
+            <TextBox x:Name="TBX_Age" Margin="4"></TextBox>
+            
+        </StackPanel>
+        <Grid x:Name="GD2" Margin="8" Grid.Column="2">
+            <Image x:Name="IMG" Stretch="Uniform"></Image>
+            <!--<Image x:Name="IMG" Source="Resurce/Image/mei.png" Stretch="Uniform"></Image>-->
+        </Grid>
+    </Grid>
+</Window>

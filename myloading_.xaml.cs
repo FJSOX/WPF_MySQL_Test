@@ -25,6 +25,7 @@ namespace WPF_MySQL_Test
         public myloading_()
         {
             InitializeComponent();
+            
         }
 
         static ANi aNi;
@@ -42,6 +43,8 @@ namespace WPF_MySQL_Test
             //td.IsBackground = false;
             //td.Start();
 
+            aNi = new ANi();
+
             App.Current.Dispatcher.Invoke((Action)(() =>//开始异步执行，原理正在搞
             {
                 NewANi();
@@ -49,7 +52,7 @@ namespace WPF_MySQL_Test
 
             for (int i = 0; i < 100; i++)//no.3
             {
-                Thread.Sleep(100);//主线程需要做的事
+                Thread.Sleep(20);//主线程需要做的事
                 Console.WriteLine("action {0}",i);
             }
             
@@ -70,7 +73,7 @@ namespace WPF_MySQL_Test
 
         static void NewANi()
         {
-            aNi = new ANi();
+            
             aNi.Show();
         }
 
@@ -116,6 +119,21 @@ namespace WPF_MySQL_Test
             d.EndInvoke(asyncResult);
             aNi.Close();
             Console.WriteLine("over!");
+        }
+    }
+
+    public class MyButton: Button
+    {
+        public Type UserWindowType { get; set; }
+
+        protected override void OnClick()
+        {
+            base.OnClick();
+            Window window = Activator.CreateInstance(this.UserWindowType) as Window;
+            if (window!=null)
+            {
+                window.ShowDialog();
+            }
         }
     }
 }

@@ -5,12 +5,94 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_MySQL_Test"
         mc:Ignorable="d"
-        Title="myloading_" Height="400" Width="400">
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        Title="myloading_" Height="800" Width="400">
+
+    <Window.Resources>
+        <sys:String x:Key="myStr">myclick</sys:String>
+    </Window.Resources>
 
     <Grid>
         <StackPanel>
-            <Rectangle x:Name="rectangle" Height="200" ></Rectangle>
-            <Button x:Name="btnTest" Click="btnTest_Click" Height="100">Click</Button>
+            <Rectangle x:Name="rectangle" Height="150" >
+                <Rectangle.Fill>
+                    <LinearGradientBrush>
+                        <!--<LinearGradientBrush.StartPoint>
+                            <Point X="0" Y="1"></Point>
+                        </LinearGradientBrush.StartPoint>
+                        <LinearGradientBrush.EndPoint>
+                            <Point X="1" Y="0"></Point>
+                        </LinearGradientBrush.EndPoint>-->
+                        <!--<GradientStop>-->
+                        <!--<GradientStopCollection>-->
+                        <GradientStop Offset="0.2" Color="LightGreen"/>
+                        <GradientStop Offset="0.6" Color="SkyBlue"/>
+                        <GradientStop Offset="1" Color="LightPink"/>
+                        <!--</GradientStopCollection>-->
+                        <!--</GradientStop>-->
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <StackPanel Orientation="Horizontal">
+                <local:MyButton Width="200" UserWindowType="{x:Type TypeName=local:ANi}" >showdia</local:MyButton>
+                <Button x:Name="btnTest" Click="btnTest_Click" Width="190" Height="70" Content="{StaticResource ResourceKey=myStr}"></Button>
+            </StackPanel>
+            <Ellipse Width="110" Height="110" >
+                <Ellipse.Fill>
+                    <RadialGradientBrush GradientOrigin="0.35,0.35" RadiusX="{Binding ElementName=Sld1,Path=Value,Mode=OneWay}" RadiusY="{Binding ElementName=Sld1,Path=Value,Mode=OneWay}">
+                        <GradientStop Color="White" Offset="0"></GradientStop>
+                        <GradientStop Color="Black" Offset="0.5"></GradientStop>
+                        <GradientStop Color="Gray" Offset="0.8"></GradientStop>
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Slider x:Name="Sld1" Maximum="1" ></Slider>
+            <ListBox>
+                <ListBox.ItemsSource>
+                    <x:Array Type="sys:String">
+                        <sys:String>sss</sys:String>
+                        <sys:String>aaa</sys:String>
+                        <sys:String>ttt</sys:String>
+                    </x:Array>
+                </ListBox.ItemsSource>
+            </ListBox>
+            <Button HorizontalAlignment="Center" Background="AliceBlue">
+                <Image Source=".\img\close.png" Width="30" ></Image>
+            </Button>
+            <CheckBox>www</CheckBox>
+            <ComboBox Width="80"></ComboBox>
+            <Grid RenderTransformOrigin="0.5,0.5">
+                <Grid.ColumnDefinitions>
+                
+                </Grid.ColumnDefinitions>
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="{Binding ElementName=Sld2,Path=Value,Mode=OneWay}"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
+                <Button Grid.ColumnSpan="2">nullll</Button>
+            </Grid>
+            <Slider x:Name="Sld2" Maximum="360"></Slider>
+            <DockPanel Height="45">
+                <TextBlock DockPanel.Dock="Left" Width="50" >hhh</TextBlock>
+                <Ellipse Width="30" Height="30" Fill="Red"></Ellipse>
+                <TextBlock DockPanel.Dock="Top" >kk</TextBlock>
+                <TextBlock >www</TextBlock>
+            </DockPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="198"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBox Height="100" BorderBrush="Black" IsUndoEnabled="True" >wwwwwwwwwwwwwwwwwwwwwwwwww</TextBox>
+                <GridSplitter Width="3" Background="DarkBlue">
+                </GridSplitter>
+                <TextBox Height="100" BorderBrush="Black" Grid.Column="2"></TextBox>
+            </Grid>
         </StackPanel>
     </Grid>
 

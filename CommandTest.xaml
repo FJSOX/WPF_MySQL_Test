@@ -1,0 +1,43 @@
+﻿<Window x:Class="WPF_MySQL_Test.CommandTest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_MySQL_Test"
+        mc:Ignorable="d"
+        Title="CommandTest" Height="500" Width="500" WindowStartupLocation="CenterScreen">
+    <Grid ShowGridLines="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="SP1">
+            <TextBox x:Name="TBX1" Height="20"></TextBox>
+            <Button x:Name="BTN_Clear" Height="20">CLEAR</Button>
+        </StackPanel>
+        <StackPanel x:Name="SP2" Grid.Column="1">
+            
+            <Grid x:Name="GD00" Margin="4">
+                <TextBlock x:Name="TBK_Left" Margin="4" Text="Name:" HorizontalAlignment="Left"/>
+                <TextBox x:Name="TBX_Right" Margin="4" HorizontalAlignment="Right" Width="170"/>
+            </Grid>
+            <Button Content="New Student" Command="New" CommandParameter="Student" Margin="8"/>
+            <Button Content="New Teacher" Command="New" CommandParameter="Teacher" Margin="8"/>
+            <ListBox x:Name="LB_NewItems"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <local:MyCommmandSource x:Name="ctrlClear" Margin="8">
+                <TextBlock Text="清除" TextAlignment="Center" 
+                           Background="LightCyan" Width="80"/>
+            </local:MyCommmandSource>
+            <local:MiniView x:Name="miniView"/>
+        </StackPanel>
+    </Grid>
+    <Window.CommandBindings>
+        <CommandBinding Command="New" CanExecute="New_CanExecute" Executed="New_Executed"/>
+    </Window.CommandBindings>
+</Window>

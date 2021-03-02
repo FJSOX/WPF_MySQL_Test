@@ -15,8 +15,9 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="241*"></ColumnDefinition>
-            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="397*"></ColumnDefinition>
+            <ColumnDefinition Width="85*"/>
+            <ColumnDefinition Width="20*"/>
             <ColumnDefinition Width="90"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -24,7 +25,7 @@
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
 
-        <ListView Height="300" Margin="21,0,0.861,39" VerticalAlignment="Bottom" ItemContainerStyle="{StaticResource ListViewItemStyle}" ItemsSource="{Binding}" Name="LV" HorizontalAlignment="Center">
+        <ListView Height="300" Margin="21,0,1,39" VerticalAlignment="Bottom" ItemContainerStyle="{StaticResource ListViewItemStyle}" Name="LV" HorizontalAlignment="Center" Grid.ColumnSpan="2">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="编号" DisplayMemberBinding="{Binding Path=ID}"  Width="150" />
@@ -38,20 +39,21 @@
                     </GridViewColumn>
                 </GridView>
             </ListView.View>
+            <StackPanel x:Name="StkP" Orientation="Horizontal" Height="50" Width="502">
+                <Label Width="80" HorizontalContentAlignment="Right" VerticalAlignment="Center" Content="ID"/>
+                <TextBox x:Name="Tbo_ID" Width="80" HorizontalContentAlignment="Left" IsEnabled="False" VerticalAlignment="Center" Text="0"/>
+                <Label Width="80" HorizontalContentAlignment="Right" VerticalAlignment="Center" Content="NAME"/>
+                <TextBox x:Name="Tbo_NAME" Width="80" HorizontalContentAlignment="Left" VerticalAlignment="Center" Text="N/A"/>
+                <Label Width="80" HorizontalContentAlignment="Right" VerticalAlignment="Center" Content="AGE"/>
+                <TextBox x:Name="Tbo_AGE" Width="80" HorizontalContentAlignment="Left" VerticalAlignment="Center" Text="0"/>
+
+            </StackPanel>
+
         </ListView>
 
-        <Button Click="Btn_Show_Clk" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">Show</Button>
-        <Button Click="Btn_New_Window" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom">New</Button>
-        <StackPanel x:Name="StkP" Grid.Row="1" Orientation="Horizontal" Grid.ColumnSpan="2">
-            <Label Width="80" HorizontalContentAlignment="Right" VerticalAlignment="Center">ID</Label>
-            <TextBox x:Name="Tbo_ID" Width="80" HorizontalContentAlignment="Left" IsEnabled="False" VerticalAlignment="Center">0</TextBox>
-            <Label Width="80" HorizontalContentAlignment="Right" VerticalAlignment="Center">NAME</Label>
-            <TextBox x:Name="Tbo_NAME" Width="80" HorizontalContentAlignment="Left" VerticalAlignment="Center">N/A</TextBox>
-            <Label Width="80" HorizontalContentAlignment="Right" VerticalAlignment="Center">AGE</Label>
-            <TextBox x:Name="Tbo_AGE" Width="80" HorizontalContentAlignment="Left" VerticalAlignment="Center">0</TextBox>
-
-        </StackPanel>
-        <Button Click="Btn_Add_CLk" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">Add</Button>
+        <Button Click="Btn_Show_Clk" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="28,175">Show</Button>
+        <Button Click="Btn_New_Window" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="30,0,30,10">New</Button>
+        <Button Click="Btn_Add_CLk" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="31,15">Add</Button>
 
     </Grid>
 </Window>

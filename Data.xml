@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Data xmlns="">
+	<Grade Name="一年级">
+		<Class Name="A班">
+			<Group Name="甲组"/>
+			<Group Name="乙组"/>
+			<Group Name="丙组"/>
+		</Class>
+		<Class Name="B班">
+			<Group Name="甲组"/>
+			<Group Name="乙组"/>
+			<Group Name="丙组"/>
+		</Class>
+	</Grade>
+	<Grade Name="二年级">
+		<Class Name="A班">
+			<Group Name="甲组"/>
+			<Group Name="乙组"/>
+			<Group Name="丙组"/>
+		</Class>
+		<Class Name="B班">
+			<Group Name="甲组"/>
+			<Group Name="乙组"/>
+			<Group Name="丙组"/>
+		</Class>
+	</Grade>
+	<Grade Name="三年级">
+		<Class Name="A班">
+			<Group Name="甲组"/>
+			<Group Name="乙组"/>
+			<Group Name="丙组"/>
+		</Class>
+		<Class Name="B班">
+			<Group Name="甲组"/>
+			<Group Name="乙组"/>
+			<Group Name="丙组"/>
+		</Class>
+	</Grade>
+</Data>

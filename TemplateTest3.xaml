@@ -1,0 +1,39 @@
+﻿<Window x:Class="WPF_MySQL_Test.TemplateTest3"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_MySQL_Test"
+        xmlns:sys="clr-namespace:System.Collections;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="TemplateTest3" Height="250" Width="250">
+    <Window.Resources>
+        <!--数据模板-->
+        <DataTemplate DataType="Unit">
+            <Grid Margin="1">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Height="25" Width="{Binding XPath=@Price}" Stroke="LightBlue" Margin="1" ></Rectangle>
+                    <TextBlock Text="{Binding XPath=@Year}" Margin="6" FontWeight="Bold"/>
+                </StackPanel>
+                <TextBlock Text="{Binding XPath=@Price}" Margin="8" FontWeight="Bold"/>
+            </Grid>
+        </DataTemplate>
+        <!--数据源-->
+        <XmlDataProvider x:Key="ds" XPath="Units/Unit">
+            <x:XData>
+                <Units xmlns="">
+                    <Unit Year="2000" Price="100"/>
+                    <Unit Year="2001" Price="130"/>
+                    <Unit Year="2002" Price="140"/>
+                    <Unit Year="2003" Price="150"/>
+                </Units>
+            </x:XData>
+        </XmlDataProvider>
+    </Window.Resources>
+    <Grid>
+        <StackPanel >
+            <ListBox ItemsSource="{Binding Source={StaticResource ds}}"/>
+            <ComboBox ItemsSource="{Binding Source={StaticResource ds}}" Margin="8"/>
+        </StackPanel> 
+    </Grid>
+</Window>
